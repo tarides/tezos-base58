@@ -1,0 +1,4 @@
+(library
+ (name tezos_base58)
+ (public_name tezos-base58)
+ (libraries fmt zarith digestif))
