@@ -25,6 +25,11 @@
 (*                                                                           *)
 (*****************************************************************************)
 
+module Option = struct
+  let map f = function None -> None | Some x -> Some (f x)
+  let bind x f = match x with None -> None | Some x -> f x
+end
+
 let base = 58
 let zbase = Z.of_int base
 
@@ -141,7 +146,6 @@ type t = Base58 of string
 let pp ppf (Base58 s) = Fmt.string ppf s
 
 let decode ~prefix (Base58 s) =
-  let ( >?? ) = Option.bind in
-  safe_decode s >?? remove_prefix ~prefix
+  Option.bind (safe_decode s) (remove_prefix ~prefix)
 
 let encode ~prefix d = Base58 (safe_encode (prefix ^ d))
