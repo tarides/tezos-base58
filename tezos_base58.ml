@@ -51,13 +51,10 @@ module Alphabet = struct
     done;
     { encode = alphabet; decode = Bytes.to_string str }
 
-  let bitcoin =
-    make "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
-
-  let default = bitcoin
+  let v = make "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+  let encode = v.encode
+  let decode = v.decode
 end
-
-let alphabet = Alphabet.default
 
 let count_trailing_char s c =
   let len = String.length s in
@@ -74,15 +71,15 @@ let count_leading_char s c =
   loop 0
 
 let of_char x =
-  let pos = alphabet.decode.[int_of_char x] in
+  let pos = Alphabet.decode.[int_of_char x] in
   match pos with '\255' -> None | _ -> Some (int_of_char pos)
 
-let to_char x = alphabet.encode.[x]
+let to_char x = Alphabet.encode.[x]
 
 let raw_encode s =
   let len = String.length s in
   let s = String.init len (fun i -> s.[len - i - 1]) in
-  let zero = alphabet.encode.[0] in
+  let zero = Alphabet.encode.[0] in
   let zeros = count_trailing_char s '\000' in
   let res_len = ((len * 8) + 4) / 5 in
   let res = Bytes.make res_len '\000' in
@@ -114,7 +111,7 @@ let raw_decode s =
          let res = Z.to_bits res in
          let res_tzeros = count_trailing_char res '\000' in
          let len = String.length res - res_tzeros in
-         let zeros = count_leading_char s alphabet.encode.[0] in
+         let zeros = count_leading_char s Alphabet.encode.[0] in
          String.make zeros '\000' ^ String.init len (fun i -> res.[len - i - 1]))
 
 let checksum s =
