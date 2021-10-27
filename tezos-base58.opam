@@ -10,8 +10,8 @@ authors: [
   "Thomas Gazagnaire <thomas@gazagnaire.org>"
 ]
 license: "MIT"
-homepage: "https://github.com/tarides/tezos-context-hash"
-bug-reports: "https://github.com/tarides/tezos-context-hash/issues"
+homepage: "https://github.com/tarides/tezos-base58"
+bug-reports: "https://github.com/tarides/tezos-base58/issues"
 depends: [ "dune" {>= "2.7"}  "zarith" "digestif" "fmt" ]
 build: [
   ["dune" "subst"] {dev}
