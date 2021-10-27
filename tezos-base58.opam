@@ -12,9 +12,9 @@ authors: [
 license: "MIT"
 homepage: "https://github.com/tarides/tezos-base58"
 bug-reports: "https://github.com/tarides/tezos-base58/issues"
-depends: [ "dune" {>= "2.7"}  "zarith" "digestif" "fmt" ]
+depends: [ "dune" {>= "2.7"}  "zarith" "digestif" {>= "0.2"} "fmt" ]
 build: [
   ["dune" "subst"] {dev}
-  [ "dune" "build"  "-p" name  "-j" jobs "@install"  "@runtest" {with-test} ]
+  [ "dune" "build" "-p" name  "-j" jobs]
 ]
 dev-repo: "git+https://github.com/tarides/tezos-base58.git"
